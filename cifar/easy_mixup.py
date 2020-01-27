@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
+import torch.backends.cudnn as cudnn  ## import this cudnn  (where ## indicate notes by guixj)
 
 import torchvision
 import torchvision.transforms as transforms
@@ -117,8 +117,8 @@ def train(epoch):
         inputs, targets_a, targets_b = Variable(inputs), Variable(targets_a), Variable(targets_b)
         outputs = net(inputs)
 
-        loss_func = mixup_criterion(targets_a, targets_b, lam)
-        loss = loss_func(criterion, outputs)
+        loss_func = mixup_criterion(targets_a, targets_b, lam)  ## return a function?
+        loss = loss_func(criterion, outputs) ## input criterion is a function 
         loss.backward()
         optimizer.step()
 
@@ -159,7 +159,7 @@ def test(epoch):
         checkpoint(acc, epoch)
     return (test_loss/batch_idx, 100.*correct/total)
 
-def checkpoint(acc, epoch):
+def checkpoint(acc, epoch): ## save in this type
     # Save checkpoint.
     print('Saving..')
     state = {
